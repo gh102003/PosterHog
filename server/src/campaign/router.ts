@@ -15,7 +15,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
             destination: true
         }
     })
-    return res.status(201).json({ campaigns });
+    return res.status(200).json({ campaigns });
 })
 
 // Get one campaign
