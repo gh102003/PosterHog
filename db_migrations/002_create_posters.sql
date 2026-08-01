@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS posters (
     campaign_id integer references campaigns(campaign_id) not null,
     location_lat real,
     location_long real,
-    location_photo bytea not null
+    location_photo bytea
 );

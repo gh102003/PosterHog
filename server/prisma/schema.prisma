@@ -21,7 +21,7 @@ model posters {
   campaign_id    Int
   location_lat   Float?    @db.Real
   location_long  Float?    @db.Real
-  location_photo Bytes
+  location_photo Bytes?
   campaigns      campaigns @relation(fields: [campaign_id], references: [campaign_id], onDelete: NoAction, onUpdate: NoAction)
   scans          scans[]
 }
