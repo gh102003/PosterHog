@@ -8,7 +8,7 @@ datasource db {
 }
 
 model campaigns {
-  campaign_id   BigInt    @unique @default(autoincrement())
+  campaign_id   Int       @unique @default(autoincrement())
   campaign_name String    @db.VarChar
   poster_pdf    Bytes?
   destination   String    @db.VarChar
@@ -16,11 +16,19 @@ model campaigns {
 }
 
 model posters {
-  poster_id      BigInt     @unique @default(autoincrement())
-  link_uuid      String     @unique @db.Uuid
-  campaign_id    BigInt?
-  location_lat   Float?     @db.Real
-  location_long  Float?     @db.Real
+  poster_id      Int       @unique @default(autoincrement())
+  link_uuid      String    @unique @db.Uuid
+  campaign_id    Int
+  location_lat   Float?    @db.Real
+  location_long  Float?    @db.Real
   location_photo Bytes
-  campaigns      campaigns? @relation(fields: [campaign_id], references: [campaign_id], onDelete: NoAction, onUpdate: NoAction)
+  campaigns      campaigns @relation(fields: [campaign_id], references: [campaign_id], onDelete: NoAction, onUpdate: NoAction)
+  scans          scans[]
+}
+
+model scans {
+  scan_id      Int      @unique @default(autoincrement())
+  poster_id    Int
+  time_scanned DateTime @db.Timestamp(6)
+  posters      posters  @relation(fields: [poster_id], references: [poster_id], onDelete: NoAction, onUpdate: NoAction)
 }

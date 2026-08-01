@@ -17,7 +17,7 @@ router.get('/:link_uuid', async (req: express.Request, res: express.Response) =>
         return res.status(404).json({ error: "Poster not found" });
     }
 
-    if (!poster) {
+    if (!poster || !poster.campaigns) {
         return res.status(404).json({ error: "Poster not found" });
     }
 
