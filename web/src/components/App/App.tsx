@@ -27,7 +27,9 @@ function App() {
     return (
         <div className={styles.wrapper}>
             <NavBar activePage={currentPage} changePage={changePage}></NavBar>
-            {Pages[currentPage]}
+            <div className={styles.pageWrapper}>
+                {Pages[currentPage]}
+            </div>
         </div>
     );
 }
