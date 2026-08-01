@@ -51,14 +51,17 @@
   transition: width 0.1s;
 }
 
-.mobileNavBtn{
+.navBtn{
   border-radius: 20px;
   border: none;
   font-size: 1rem;
   line-height: 1rem;
-  padding: 1rem 0;
   background-color: transparent;
   color: var(--color-white);
+}
+
+.mobileNavBtn{
+  padding: 1rem 0;
   text-align: left;
 }
 
@@ -66,23 +69,16 @@
   text-decoration: underline;
 }
 
-
-.navBtn{
-  border-radius: 20px;
-  border: none;
-  font-size: 1rem;
-  line-height: 1rem;
+.desktopNavBtn{
   padding: calc(10 / 16 * 1rem) 1rem;
-  background-color: transparent;
-  color: var(--color-white);
 }
 
-.navBtn.activeBtn{
+.desktopNavBtn.activeBtn{
   background-color:var(--color-blue-200);
   color: var(--color-blue-950);
 }
 
-.navBtn:hover{
+.desktopNavBtn:hover{
   text-decoration: underline;
 }
 
