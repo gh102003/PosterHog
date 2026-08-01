@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model campaigns {
+  campaign_id   BigInt    @unique @default(autoincrement())
+  campaign_name String    @db.VarChar
+  poster_pdf    Bytes?
+  destination   String    @db.VarChar
+  posters       posters[]
+}
+
+model posters {
+  poster_id      BigInt     @unique @default(autoincrement())
+  link_uuid      String     @unique @db.Uuid
+  campaign_id    BigInt?
+  location_lat   Float?     @db.Real
+  location_long  Float?     @db.Real
+  location_photo Bytes
+  campaigns      campaigns? @relation(fields: [campaign_id], references: [campaign_id], onDelete: NoAction, onUpdate: NoAction)
+}
