@@ -1,11 +1,13 @@
 import express, { type Express, type Request, type Response } from 'express';
-import {router as scanRouter} from "./scan/router.ts";
-import {router as campaignRouter} from "./campaign/router.ts";
+import cors from "cors";
+import { router as scanRouter } from "./scan/router.ts";
+import { router as campaignRouter } from "./campaign/router.ts";
 
 const app: Express = express();
 const port = 3000;
 
 app.use(express.json())
+app.use(cors());
 
 app.use('/scan', scanRouter);
 app.use('/campaign', campaignRouter);
