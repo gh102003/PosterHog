@@ -1,18 +1,31 @@
-.button{
+.primary{
   font-size: 2rem;
   background: var(--color-blue-500);
   color: var(--color-white);
   border: none;
   border-radius: 1rem;
 }
-.button:hover{
+.primary:hover{
   background: var(--color-blue-700);
 }
-.button:focus{
+.primary:focus{
   outline: solid 2px var(--color-blue-500);
   outline-offset: 2px;
 }
 
-.button:hover:focus{
+.primary:hover:focus{
   outline-color: var(--color-blue-700);
+}
+
+.secondary{
+  border-radius: 20px;
+  border: none;
+  background: hsl(263, 65%, 92%);
+  font-size: 1rem;
+  line-height: 1rem;
+  padding: calc(10 / 16 * 1rem) 1rem;
+}
+
+.button{
+  text-wrap: nowrap;
 }

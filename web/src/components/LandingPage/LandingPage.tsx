@@ -13,8 +13,8 @@ function LandingPage({toCampaignPage, toAnalyticsPage}:LandingPageProps) {
             <div className={styles.heroWrapper}>
                 <h1 className={styles.title}>Post Hog</h1>
                 <div className={styles.buttonWrapper}>
-                    <Button onClick={()=>{toCampaignPage()}}>Campaigns</Button>
-                    <Button onClick={()=>{toAnalyticsPage()}}>Analytics</Button>
+                    <Button onClick={()=>{toCampaignPage()}} type={"primary"}>Campaigns</Button>
+                    <Button onClick={()=>{toAnalyticsPage()}} type={"primary"}>Analytics</Button>
                 </div>
             </div>
         </>

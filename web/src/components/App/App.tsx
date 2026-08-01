@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import AnalyticsPage from "../AnalyticsPage";
 import CampaignPage from "../CampaignPage";
 import {type JSX, useState} from "react";
+import NavBar from "../NavBar";
 
 type PageKey = "landingPage" | "analyticsPage" | "campaignPage";
 
@@ -22,6 +23,7 @@ function App() {
 
     return (
         <div className={styles.wrapper}>
+            <NavBar></NavBar>
             {Pages[currentPage]}
         </div>
     );

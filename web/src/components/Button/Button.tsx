@@ -4,11 +4,12 @@ import React from "react";
 interface ButtonProps {
     children: React.ReactNode;
     onClick: () => void;
+    type: "primary" | "secondary";
 }
 
-function Button({ children, onClick }: ButtonProps) {
+function Button({ children, onClick, type }: ButtonProps) {
     return (
-        <button onClick={onClick} className={styles.button}>
+        <button onClick={onClick} className={`${styles.button} ${styles[type]}`}>
             {children}
         </button>
     );
