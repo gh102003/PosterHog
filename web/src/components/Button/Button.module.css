@@ -1,0 +1,18 @@
+.button{
+  font-size: 2rem;
+  background: var(--color-blue-500);
+  color: var(--color-white);
+  border: none;
+  border-radius: 1rem;
+}
+.button:hover{
+  background: var(--color-blue-700);
+}
+.button:focus{
+  outline: solid 2px var(--color-blue-500);
+  outline-offset: 2px;
+}
+
+.button:hover:focus{
+  outline-color: var(--color-blue-700);
+}
