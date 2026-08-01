@@ -11,5 +11,5 @@ app.use('/scan', scanRouter);
 app.use('/campaign', campaignRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`PosterHog server listening on port ${port}`);
 });
