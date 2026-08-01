@@ -1,6 +1,7 @@
 import express from 'express';
 import { prisma } from '../db.ts';
 import * as z from "zod";
+import {router as posterRouter} from "../poster/router.ts";
 
 export const router = express.Router();
 
@@ -65,3 +66,5 @@ router.post('/', async (req: express.Request, res: express.Response) => {
     });
     return res.status(201).json({ campaign });
 })
+
+router.use(posterRouter);
