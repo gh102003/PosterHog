@@ -1,3 +1,5 @@
+export const BACKEND_URL = "http://localhost:3000";
+
 export const LANDING_PAGE = "Home";
 export const CAMPAIGN_PAGE = "Campaign";
 export const ANALYTICS_PAGE = "Analytics";

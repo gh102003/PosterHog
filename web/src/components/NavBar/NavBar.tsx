@@ -14,7 +14,7 @@ function NavBar({activePage, changePage}: NavBarProps) {
             <div className={styles.btnGroup}>
                 {
                     PAGE_NAMES.map((pageName) => (
-                        <Button onClick={()=>{changePage(pageName)}} type={"secondary"} active={activePage===pageName}>{pageName}</Button>
+                        <Button key={pageName} onClick={()=>{changePage(pageName)}} type={"secondary"} active={activePage===pageName}>{pageName}</Button>
 
                     ))
                 }

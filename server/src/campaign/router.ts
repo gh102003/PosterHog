@@ -9,10 +9,8 @@ export const router = express.Router();
 router.get('/', async (req: express.Request, res: express.Response) => {
 
     const campaigns = await prisma.campaigns.findMany({
-        select: {
-            campaign_id: true,
-            campaign_name: true,
-            destination: true
+        include: {
+            posters: true
         }
     })
     return res.status(200).json({ campaigns });
