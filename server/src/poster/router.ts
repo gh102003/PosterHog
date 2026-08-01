@@ -17,7 +17,7 @@ router.post('/:campaignId/poster', async (req: express.Request<{ campaignId: str
     let campaignId;
     try {
         campaignId = Number(req.params.campaignId);
-        prisma.campaigns.findFirstOrThrow({
+        await prisma.campaigns.findFirstOrThrow({
             where: { campaign_id: campaignId },
             select: {}
         })
@@ -54,3 +54,26 @@ router.post('/:campaignId/poster', async (req: express.Request<{ campaignId: str
     });
     return res.status(201).json({ posters });
 })
+
+// Get one poster and its scans
+router.get("/:campaignId/poster/:posterId", async (req: express.Request<{ campaignId: string, posterId: string }>, res: express.Response) => {
+    let campaignId: number, posterId: number;
+    try {
+        campaignId = Number(req.params.campaignId);
+    } catch (error) {
+        console.warn(error);
+        return res.status(404).json({ error: "Campaign id invalid" });
+    }
+    let poster;
+    try {
+        posterId = Number(req.params.posterId);
+        poster = await prisma.posters.findFirstOrThrow({
+            where: { poster_id: posterId, campaign_id: campaignId },
+            include: { scans: true }
+        })
+    } catch (error) {
+        console.warn(error);
+        return res.status(404).json({ error: "Campaign id not found" });
+    }
+    return res.status(200).json({...poster});
+});
