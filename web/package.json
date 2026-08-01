@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.19.0",
+    "feather-icons-react": "^1.0.0",
     "qrcode.react": "^4.2.0",
     "radix-ui": "^1.6.7",
     "react": "^19.2.8",
