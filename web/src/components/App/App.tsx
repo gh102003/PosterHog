@@ -3,25 +3,30 @@ import styles from "./App.module.css";
 import AnalyticsPage from "../AnalyticsPage";
 import CampaignPage from "../CampaignPage";
 import {type JSX, useState} from "react";
+import NavBar from "../NavBar";
+import {ANALYTICS_PAGE, CAMPAIGN_PAGE, LANDING_PAGE, type PageName} from "../../constants.ts";
 
-type PageKey = "landingPage" | "analyticsPage" | "campaignPage";
 
 function App() {
-    const [currentPage, setCurrentPage] = useState<PageKey>("landingPage");
+    const [currentPage, setCurrentPage] = useState<PageName>(LANDING_PAGE);
 
-    const Pages: Record<PageKey, JSX.Element> = {
-        landingPage: (
+    function changePage(page: PageName){
+        setCurrentPage(page);
+    }
+
+    const Pages: Record<PageName, JSX.Element> = {
+        [LANDING_PAGE]: (
             <LandingPage
-                toCampaignPage={() => setCurrentPage("campaignPage")}
-                toAnalyticsPage={() => setCurrentPage("analyticsPage")}
+                changePage={changePage}
             />
         ),
-        analyticsPage: <AnalyticsPage />,
-        campaignPage: <CampaignPage />,
+        [ANALYTICS_PAGE]: <AnalyticsPage />,
+        [CAMPAIGN_PAGE]: <CampaignPage />,
     };
 
     return (
         <div className={styles.wrapper}>
+            <NavBar activePage={currentPage} changePage={changePage}></NavBar>
             {Pages[currentPage]}
         </div>
     );
