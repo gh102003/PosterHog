@@ -1,25 +1,63 @@
 .heroWrapper{
-  position: absolute;
-  top: 30%;
-
-  max-width: fit-content;
-  margin:auto;
-  left:0;
-  right:0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 650px;
+  margin-left: 90px;
+
 }
 
 .title{
-  font-size: 5rem;
-  font-style: italic;
-  color: var(--color-amber-600)
+  font-size: 8rem;
+  color: var(--color-amber-800);
+  margin-left: -15px;
 }
 
 .buttonWrapper{
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.circle{
+  background-color: var(--color-blue-200);
+  border-radius: 50%;
+  width: 900px;
+  height: 900px;
+  position: absolute;
+}
+.landingPageWrapper{
+  position:relative;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.intro{
+  text-align:left;
+  font-size: 1.5rem;
+}
+
+.bigNavBtn{
+  width:100%;
+  border:none;
+  background-color: var(--color-amber-800);
+  color: var(--color-white);
+  font-size: 1.5rem;
+  margin-top: 16px;
+  border-radius: 8px;
+  padding: 4px 0;
+  transition: background-color 0.2s, width 0.2s;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bigNavBtn:hover,.bigNavBtn:focus{
+  background-color: var(--color-amber-700);
+  width: 95%;
+}
+
+.bigNavBtn:focus{
+  outline: 2px solid var(--color-amber-800);
+  outline-offset: 2px;
 }

@@ -16,9 +16,7 @@ function App() {
 
     const Pages: Record<PageName, JSX.Element> = {
         [LANDING_PAGE]: (
-            <LandingPage
-                changePage={changePage}
-            />
+            <LandingPage changePage={changePage}/>
         ),
         [ANALYTICS_PAGE]: <AnalyticsPage />,
         [CAMPAIGN_PAGE]: <CampaignPage />,
