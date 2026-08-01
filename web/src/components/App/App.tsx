@@ -16,9 +16,7 @@ function App() {
 
     const Pages: Record<PageName, JSX.Element> = {
         [LANDING_PAGE]: (
-            <LandingPage
-                changePage={changePage}
-            />
+            <LandingPage changePage={changePage}/>
         ),
         [ANALYTICS_PAGE]: <AnalyticsPage />,
         [CAMPAIGN_PAGE]: <CampaignPage />,
@@ -26,10 +24,10 @@ function App() {
 
     return (
         <div className={styles.wrapper}>
-            <NavBar activePage={currentPage} changePage={changePage}></NavBar>
             <div className={styles.pageWrapper}>
                 {Pages[currentPage]}
             </div>
+            <NavBar activePage={currentPage} changePage={changePage}></NavBar>
         </div>
     );
 }
