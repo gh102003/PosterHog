@@ -1,30 +1,50 @@
 import { useEffect, useState } from "react";
-import { getCampaigns, type CampaignType } from "../../data/campaign"
+import { createCampaign, getCampaigns, type CampaignType } from "../../data/campaign"
 import Campaign from "../Campaign/Campaign";
 import styles from "./CampaignPage.module.css"
+import { createPosters } from "../../data/poster";
+import { CreateCampaign } from "../CreateCampaign/CreateCampaign";
 
 
 function CampaignPage() {
 
-    const [campaigns, setCampaigns] = useState<CampaignType[] | null>(null);
+    const [campaigns, setCampaigns] = useState<Record<number, CampaignType> | null>(null);
 
     // Load the campaigns
     useEffect(() => {
-        getCampaigns().then(setCampaigns);
+        getCampaigns()
+            // turn campaigns from array into object, keyed by id
+            .then(campaignsArray => {
+                const campaignsObj = Object.fromEntries(campaignsArray.map(c => [c.campaignId, c]));
+                setCampaigns(campaignsObj);
+            });
     }, []);
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.campaignWrapper}>
-                {campaigns ? 
-                    campaigns.map(c => (
-                        <Campaign key={c.campaignId} campaign={c}/>
+                {campaigns ?
+                    Object.values(campaigns).map(c => (
+                        <Campaign
+                            key={c.campaignId}
+                            campaign={c}
+                            handleAddPosters={async () => {
+                                // Update the value of 'campaigns' state
+                                const newPosters = await createPosters(c.campaignId, 1);
+                                const updatedCampaign = {...c, posters: [...c.posters, ...newPosters]};
+                                setCampaigns({...campaigns, [c.campaignId]: updatedCampaign});
+                            }}
+                        />
                     ))
-                :
+                    :
                     <p>Loading campaigns...</p>
-                    }
+                }
             </div>
-
+            <CreateCampaign handleSubmit={async (name, destination) => {
+                const createdCampaign = await createCampaign(name, destination);
+                
+                setCampaigns({...campaigns, [createdCampaign.campaignId]: createdCampaign})
+            }}/>
         </div>
     )
 }

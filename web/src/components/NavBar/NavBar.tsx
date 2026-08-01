@@ -12,12 +12,12 @@ function NavBar({activePage, changePage}: NavBarProps) {
         <div className={styles.navBarWrapper}>
             <div className={styles.side}></div>
             <div className={styles.btnGroup}>
-                {
-                    PAGE_NAMES.map((pageName) => (
-                        <Button key={pageName} onClick={()=>{changePage(pageName)}} type={"secondary"} active={activePage===pageName}>{pageName}</Button>
+            {
+                PAGE_NAMES.map((pageName) => (
+                    <Button key={pageName} onClick={()=>{changePage(pageName)}} type={"secondary"} active={activePage===pageName}>{pageName}</Button>
 
-                    ))
-                }
+                ))
+            }
             </div>
             <div className={styles.side}></div>
 

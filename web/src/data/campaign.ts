@@ -28,10 +28,10 @@ export async function getCampaign(id: number) {
     return response.data;
 }
 
-export async function createCampaign(name: string, destination: string): Promise<number> {
+export async function createCampaign(name: string, destination: string): Promise<CampaignType> {
     const response = await axios.post(`${BACKEND_URL}/campaign`, {
         name,
         destination
     });
-    return response.data.campaign_id;
+    return campaignSchema.parse(response.data.campaign);
 }

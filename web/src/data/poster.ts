@@ -5,7 +5,7 @@ export async function createPosters(campaignId: number, count: number) {
     const response = await axios.post(`${BACKEND_URL}/campaign/${campaignId}/poster`, {
         count
     });
-    return response.data;
+    return response.data.posters;
 }
 
 export async function getPoster(campaignId: number, posterId: number) {

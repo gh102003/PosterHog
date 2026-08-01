@@ -18,8 +18,7 @@ router.post('/:campaignId/poster', async (req: express.Request<{ campaignId: str
     try {
         campaignId = Number(req.params.campaignId);
         await prisma.campaigns.findFirstOrThrow({
-            where: { campaign_id: campaignId },
-            select: {}
+            where: { campaign_id: campaignId }
         })
     } catch (error) {
         console.warn(error);
@@ -49,7 +48,8 @@ router.post('/:campaignId/poster', async (req: express.Request<{ campaignId: str
             link_uuid: true,
             campaign_id: true,
             location_lat: true,
-            location_long: true
+            location_long: true,
+            poster_state: true
         }
     });
     return res.status(201).json({ posters });

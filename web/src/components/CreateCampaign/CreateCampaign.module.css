@@ -1,0 +1,10 @@
+.title {
+  width: 100%;
+  background: var(--color-blue-900);
+  color: white;
+}
+
+.content {
+  background: #D9D9D9;
+  padding: 15px;
+}
