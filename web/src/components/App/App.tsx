@@ -1,11 +1,12 @@
-import styles from "./App.module.css";
+import LandingPage from "../LandingPage";
+import styles from "./App.module.css"
 
 function App() {
 
   return (
-    <>
-        <p className={styles.title}>Post Hog</p>
-    </>
+    <div className={styles.wrapper}>
+        <LandingPage/>
+    </div>
   )
 }
 

@@ -1,0 +1,15 @@
+.heroWrapper{
+  position: absolute;
+  top: 30%;
+
+  max-width: fit-content;
+  margin:auto;
+  left:0;
+  right:0;
+}
+
+.title{
+  font-size: 5rem;
+  font-style: italic;
+  color: var(--color-amber-600)
+}
