@@ -1,7 +1,7 @@
 .navBarWrapper {
   position: fixed;
   top: 0;
-  background-color:hsl(276, 38%, 95%);
+  background-color:var(--color-blue-950);
   height: calc(56/16 *1rem);
   width: 100%;
   display: flex;
@@ -17,3 +17,23 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+.navBtn{
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  line-height: 1rem;
+  padding: calc(10 / 16 * 1rem) 1rem;
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+.navBtn.activeBtn{
+  background-color:var(--color-blue-200);
+  color: var(--color-blue-950);
+}
+
+.navBtn:hover{
+  text-decoration: underline;
+}
+

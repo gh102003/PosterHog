@@ -1,5 +1,4 @@
 import styles from "./NavBar.module.css";
-import Button from "../Button";
 import {PAGE_NAMES, type PageName} from "../../constants.ts";
 
 interface NavBarProps {
@@ -14,7 +13,7 @@ function NavBar({activePage, changePage}: NavBarProps) {
             <div className={styles.btnGroup}>
                 {
                     PAGE_NAMES.map((pageName) => (
-                        <Button onClick={()=>{changePage(pageName)}} type={"secondary"} active={activePage===pageName}>{pageName}</Button>
+                        <button onClick={()=>{changePage(pageName)}} className={`${styles.navBtn} ${activePage===pageName && styles.activeBtn}`}>{pageName}</button>
 
                     ))
                 }
