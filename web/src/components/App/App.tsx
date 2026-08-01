@@ -4,26 +4,29 @@ import AnalyticsPage from "../AnalyticsPage";
 import CampaignPage from "../CampaignPage";
 import {type JSX, useState} from "react";
 import NavBar from "../NavBar";
+import {ANALYTICS_PAGE, CAMPAIGN_PAGE, LANDING_PAGE} from "../../constants.ts";
 
-type PageKey = "landingPage" | "analyticsPage" | "campaignPage";
 
 function App() {
-    const [currentPage, setCurrentPage] = useState<PageKey>("landingPage");
+    const [currentPage, setCurrentPage] = useState<string>(LANDING_PAGE);
 
-    const Pages: Record<PageKey, JSX.Element> = {
-        landingPage: (
+    function changePage(page: string){
+        setCurrentPage(page);
+    }
+
+    const Pages: Record<string, JSX.Element> = {
+        [LANDING_PAGE]: (
             <LandingPage
-                toCampaignPage={() => setCurrentPage("campaignPage")}
-                toAnalyticsPage={() => setCurrentPage("analyticsPage")}
+                changePage={changePage}
             />
         ),
-        analyticsPage: <AnalyticsPage />,
-        campaignPage: <CampaignPage />,
+        [ANALYTICS_PAGE]: <AnalyticsPage />,
+        [CAMPAIGN_PAGE]: <CampaignPage />,
     };
 
     return (
         <div className={styles.wrapper}>
-            <NavBar></NavBar>
+            <NavBar activePage={currentPage} changePage={changePage}></NavBar>
             {Pages[currentPage]}
         </div>
     );

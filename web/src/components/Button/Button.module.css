@@ -20,10 +20,17 @@
 .secondary{
   border-radius: 20px;
   border: none;
-  background: hsl(263, 65%, 92%);
   font-size: 1rem;
   line-height: 1rem;
   padding: calc(10 / 16 * 1rem) 1rem;
+}
+.secondary:hover{
+  background: hsl(263, 65%, 92%);
+}
+
+.secondary.active{
+  font-style: italic;
+  text-decoration: underline;
 }
 
 .button{

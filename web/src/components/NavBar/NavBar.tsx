@@ -1,20 +1,23 @@
 import styles from "./NavBar.module.css";
 import Button from "../Button";
+import {PAGE_NAMES} from "../../constants.ts";
 
-// interface NavBarProps {
-//     toCampaignPage: ()=>void;
-//     toAnalyticsPage: () => void;
-//
-// }
+interface NavBarProps {
+    activePage: string;
+    changePage: (page: string) => void;
+}
 
-function NavBar() {
+function NavBar({activePage, changePage}: NavBarProps) {
     return (
         <div className={styles.navBarWrapper}>
             <div className={styles.side}></div>
             <div className={styles.btnGroup}>
-                <Button onClick={()=>{}} type={"secondary"}>Home</Button>
-                <Button onClick={()=>{}} type={"secondary"}>Campaign Mode</Button>
-                <Button onClick={()=>{}} type={"secondary"}>Analytics</Button>
+                {
+                    PAGE_NAMES.map((pageName) => (
+                        <Button onClick={()=>{changePage(pageName)}} type={"secondary"} active={activePage===pageName}>{pageName}</Button>
+
+                    ))
+                }
             </div>
             <div className={styles.side}></div>
 
