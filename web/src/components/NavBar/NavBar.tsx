@@ -1,10 +1,10 @@
 import styles from "./NavBar.module.css";
 import Button from "../Button";
-import {PAGE_NAMES} from "../../constants.ts";
+import {PAGE_NAMES, type PageName} from "../../constants.ts";
 
 interface NavBarProps {
-    activePage: string;
-    changePage: (page: string) => void;
+    activePage: PageName;
+    changePage: (page: PageName) => void;
 }
 
 function NavBar({activePage, changePage}: NavBarProps) {
