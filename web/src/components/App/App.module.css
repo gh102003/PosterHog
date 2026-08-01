@@ -3,3 +3,6 @@
   background-color: var(--color-slate-50);
   position:relative;
 }
+.pageWrapper{
+  padding-top:calc(56/16 *1rem);
+}
