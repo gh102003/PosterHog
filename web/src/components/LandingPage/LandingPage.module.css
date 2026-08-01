@@ -5,7 +5,7 @@
   align-items: center;
   max-width: 650px;
   margin-left: 90px;
-
+  position:relative;
 }
 
 .title{
@@ -23,15 +23,31 @@
 .circle{
   background-color: var(--color-blue-200);
   border-radius: 50%;
-  width: 900px;
-  height: 900px;
   position: absolute;
 }
+
+.circle:nth-of-type(1){
+  width: 850px;
+  height: 850px;
+
+  left: -80px;
+  top: -300px;
+}
+
+.circle:nth-of-type(2){
+  width: 600px;
+  height: 600px;
+  bottom: -200px;
+  right: -100px;
+}
+
 .landingPageWrapper{
   position:relative;
   display:flex;
   flex-direction: column;
   align-items: flex-start;
+  height: 100%;
+  overflow:clip;
 }
 .intro{
   text-align:left;
@@ -60,4 +76,8 @@
 .bigNavBtn:focus{
   outline: 2px solid var(--color-amber-800);
   outline-offset: 2px;
+}
+
+.circle{
+
 }

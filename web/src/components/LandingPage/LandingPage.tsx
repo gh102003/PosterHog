@@ -7,7 +7,8 @@ interface LandingPageProps {
 function LandingPage({changePage}:LandingPageProps) {
     return (
         <div className={styles.landingPageWrapper}>
-
+            <div className={styles.circle}></div>
+            <div className={styles.circle}></div>
             <div className={styles.heroWrapper}>
                 <h1 className={styles.title}>Poster Hog</h1>
                 <p className={styles.intro}>

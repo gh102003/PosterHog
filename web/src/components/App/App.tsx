@@ -24,10 +24,10 @@ function App() {
 
     return (
         <div className={styles.wrapper}>
-            <NavBar activePage={currentPage} changePage={changePage}></NavBar>
             <div className={styles.pageWrapper}>
                 {Pages[currentPage]}
             </div>
+            <NavBar activePage={currentPage} changePage={changePage}></NavBar>
         </div>
     );
 }
