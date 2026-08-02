@@ -42,6 +42,7 @@ function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
         <div className={styles.card}>
             <div ref={canvasRef}>
                 <QRCodeCanvas value={link} size={140} />
+                <a href={link}>Link</a>
             </div>
             <a href={link} className={styles.link}>{poster.linkUuid}</a>
             <button onClick={handleDownload}>
