@@ -30,6 +30,7 @@ function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
         <div>
             <div ref={canvasRef}>
                 <QRCodeCanvas value={link} size={140} />
+                <a href={link}>Link</a>
             </div>
             <a href={link}>link</a>
             <button onClick={handleDownload}>

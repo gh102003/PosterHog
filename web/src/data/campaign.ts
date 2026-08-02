@@ -11,7 +11,7 @@ const campaignSchema = z.object({
     posters: posterSchema.array()
 }).transform(x => ({
     campaignId: x.campaign_id,
-    campainName: x.campaign_name,
+    campaignName: x.campaign_name,
     destination: x.destination,
     posterPdf: x.poster_pdf,
     posters: x.posters

@@ -11,7 +11,7 @@ type CampaignProps = {
 export default function Campaign({ campaign, handleAddPosters }: CampaignProps) {
     return (
         <Collapsible.Root>
-            <Collapsible.Trigger className={styles.campaignTitle}>{campaign.campainName}</Collapsible.Trigger>
+            <Collapsible.Trigger className={styles.campaignTitle}>{campaign.campaignName}</Collapsible.Trigger>
             <Collapsible.Content className={styles.campaignContent}>
                 <div className={styles.qrCodesWrapper}>
                     {campaign.posters.map((poster, i) => (

@@ -4,6 +4,9 @@
   position:relative;
 }
 .pageWrapper{
-  padding-top:calc(56/16 *1rem);
+  padding-top:56px;
   height: 100%;
+  @media(max-width: 950px){
+    padding-top:68px;
+  }
 }
