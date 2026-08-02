@@ -77,3 +77,27 @@ router.get("/:campaignId/poster/:posterId", async (req: express.Request<{ campai
     }
     return res.status(200).json({...poster});
 });
+
+// Update one poster
+router.put("/:campaignId/poster/:posterId", async (req: express.Request<{ campaignId: string, posterId: string }>, res: express.Response) => {
+    let campaignId: number, posterId: number;
+    try {
+        campaignId = Number(req.params.campaignId);
+    } catch (error) {
+        console.warn(error);
+        return res.status(404).json({ error: "Campaign id invalid" });
+    }
+    let poster;
+
+    try {
+        posterId = Number(req.params.posterId);
+        poster = await prisma.posters.update({
+            where: { poster_id: posterId, campaign_id: campaignId },
+            data: req.body
+        })
+    } catch (error) {
+        console.warn(error);
+        return res.status(400).json({ error: "Campaign id not found or invalid body" });
+    }
+    return res.status(200).json({...poster});
+});

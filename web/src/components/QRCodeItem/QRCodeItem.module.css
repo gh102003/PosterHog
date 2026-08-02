@@ -1,0 +1,13 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: min(200px, 40vw);
+}
+
+.link {
+    font-size: 0.5em;
+}
+
+.locationImage {
+    width: 100%
+}
