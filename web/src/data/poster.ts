@@ -15,7 +15,7 @@ export const posterSchema = z
             "generated",
             "distributed",
             "removed",
-        ]),
+        ]).default('generated'),
     })
     .transform((poster) => ({
         posterId: poster.poster_id,

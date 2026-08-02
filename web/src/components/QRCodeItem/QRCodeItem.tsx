@@ -24,6 +24,10 @@ function getStateDescription(poster: PosterType): string {
 
 function QRCodeItem({ poster, campaign }: QRCodeItemProps) {
 
+    if (!poster.posterState) {
+        poster.posterState = 'generated'
+    }
+
     const link = constructScanLink(poster.linkUuid);
 
     const canvasRef = useRef<HTMLDivElement>(null);
@@ -53,7 +57,7 @@ function QRCodeItem({ poster, campaign }: QRCodeItemProps) {
                 <p>{poster.locationDescription}</p>
                 {/* <p>Latitude {poster.locationLat}, longitude {poster.locationLong}</p> */}
                 {poster.locationLat && poster.locationLong && <MapWithPoint lat={poster.locationLat} long={poster.locationLong}/>}
-                <img className={styles.locationImage} src={"data:image/jpeg;base64," + poster.locationPhoto}/>
+                {poster.locationPhoto && <img className={styles.locationImage} src={"data:image/jpeg;base64," + poster.locationPhoto}/>}
             </>
             }
         </div>
