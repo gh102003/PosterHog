@@ -1,29 +1,51 @@
-// npm install pigeon-maps
-//
-// Usage:
-//   <PosterMap selectedCampaignData={campaign} />
-//
-// Expects selectedCampaignData.posters shaped like your API response:
-//   {
-//     poster_id, link_uuid, campaign_id,
-//     location_lat, location_long, location_description, poster_state,
-//     scans: [{ scan_id, poster_id, time_scanned }, ...]
-//   }
-// Scan count is derived as scans.length.
-
 import { useMemo, useState } from "react";
 import { Map as PigeonMap, Marker, Overlay } from "pigeon-maps";
+
+export interface Scan {
+    scan_id: number;
+    poster_id: number;
+    time_scanned: string;
+}
+
+export interface Poster {
+    poster_id: number;
+    link_uuid: string;
+    campaign_id: number;
+    location_lat: number;
+    location_long: number;
+    location_description: string;
+    poster_state: string;
+    scans: Scan[];
+}
+
+export interface CampaignData {
+    posters: Poster[];
+}
+
+interface PosterWithCount extends Poster {
+    num_hits: number;
+}
+
+interface DisplayPoint extends PosterWithCount {
+    displayLat: number;
+    displayLng: number;
+}
+
+interface PosterMapProps {
+    selectedCampaignData: CampaignData | null | undefined;
+    height?: number;
+}
 
 const MIN_RADIUS = 8;
 const MAX_RADIUS = 28;
 const JITTER_RADIUS_DEG = 0.00006; // small offset so exact-duplicate coords don't fully overlap
 
-function radiusFor(hits, maxHits) {
+function radiusFor(hits: number, maxHits: number): number {
     if (maxHits === 0) return MIN_RADIUS;
     return MIN_RADIUS + Math.sqrt(hits / maxHits) * (MAX_RADIUS - MIN_RADIUS);
 }
 
-function colorFor(hits, maxHits) {
+function colorFor(hits: number, maxHits: number): string {
     const t = maxHits === 0 ? 0 : hits / maxHits;
     const r = Math.round(250 - t * 15);
     const g = Math.round(200 - t * 150);
@@ -33,15 +55,15 @@ function colorFor(hits, maxHits) {
 
 // Spread out posters that share (near-)identical coordinates in a small
 // circle around the shared point, so every marker stays clickable.
-function dedupeCoordinates(posters) {
-    const groups = new Map();
+function dedupeCoordinates(posters: PosterWithCount[]): DisplayPoint[] {
+    const groups = new Map<string, PosterWithCount[]>();
     posters.forEach((p) => {
         const key = `${p.location_lat.toFixed(6)},${p.location_long.toFixed(6)}`;
         if (!groups.has(key)) groups.set(key, []);
-        groups.get(key).push(p);
+        groups.get(key)!.push(p);
     });
 
-    const result = [];
+    const result: DisplayPoint[] = [];
     groups.forEach((group) => {
         const n = group.length;
         group.forEach((p, i) => {
@@ -60,16 +82,23 @@ function dedupeCoordinates(posters) {
     return result;
 }
 
-export default function PosterMap({ selectedCampaignData, height = 400 }) {
-    const posters = selectedCampaignData?.posters ?? [];
+export default function PosterMap({ selectedCampaignData, height = 400 }: PosterMapProps) {
+    const posters: Poster[] = selectedCampaignData?.posters ?? [];
 
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedId, setSelectedId] = useState<number | null>(null);
 
-    const { points, center, maxHits } = useMemo(() => {
+    const { points, center, maxHits } = useMemo((): {
+        points: DisplayPoint[];
+        center: [number, number];
+        maxHits: number;
+    } => {
         if (posters.length === 0) {
             return { points: [], center: [51.5072, -0.1276], maxHits: 0 };
         }
-        const withCounts = posters.map((p) => ({ ...p, num_hits: p.scans?.length ?? 0 }));
+        const withCounts: PosterWithCount[] = posters.map((p) => ({
+            ...p,
+            num_hits: p.scans?.length ?? 0,
+        }));
         const spread = dedupeCoordinates(withCounts);
         const avgLat = posters.reduce((s, p) => s + p.location_lat, 0) / posters.length;
         const avgLng = posters.reduce((s, p) => s + p.location_long, 0) / posters.length;
@@ -82,7 +111,7 @@ export default function PosterMap({ selectedCampaignData, height = 400 }) {
     if (!selectedCampaignData) return null;
 
     return (
-        <div style={{ position: "relative", width: "100%", height, marginTop:"20px" }}>
+        <div style={{ position: "relative", width: "100%", height, marginTop: "20px" }}>
             <PigeonMap height={height} defaultCenter={center} defaultZoom={17}>
                 {points.map((p) => {
                     const size = radiusFor(p.num_hits, maxHits) * 2;
