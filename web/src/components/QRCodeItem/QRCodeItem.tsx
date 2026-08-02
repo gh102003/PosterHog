@@ -1,13 +1,18 @@
 import { useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { constructScanLink } from "../../data/scan";
+import type { CampaignType } from "../../data/campaign";
+import type { PosterType } from "../../data/poster";
 
 interface QRCodeItemProps {
-    link: string;
-    campaign: string;
-    qrCodeId: string;
+    poster: PosterType,
+    campaign: CampaignType
 }
 
-function QRCodeItem({ link, campaign, qrCodeId }:QRCodeItemProps) {
+function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
+
+    const link = constructScanLink(poster.linkUuid);
+
     const canvasRef = useRef<HTMLDivElement>(null);
 
     const handleDownload = () => {
@@ -17,7 +22,7 @@ function QRCodeItem({ link, campaign, qrCodeId }:QRCodeItemProps) {
         const url = canvas.toDataURL('image/png');
         const a = document.createElement('a');
         a.href = url;
-        a.download = `qr-${campaign}-${qrCodeId}.png`;
+        a.download = `qr-${campaign.campaignId}-${poster.linkUuid}.png`;
         a.click();
     };
 
@@ -26,6 +31,7 @@ function QRCodeItem({ link, campaign, qrCodeId }:QRCodeItemProps) {
             <div ref={canvasRef}>
                 <QRCodeCanvas value={link} size={140} />
             </div>
+            <a href={link}>link</a>
             <button onClick={handleDownload}>
                 Download PNG
             </button>

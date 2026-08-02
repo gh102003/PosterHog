@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { BACKEND_URL } from "../constants";
 import * as z from "zod";
+import { posterSchema } from "./poster";
 
 const campaignSchema = z.object({
     campaign_id: z.int(),
     campaign_name: z.string(),
     destination: z.httpUrl(),
     poster_pdf: z.base64().nullable(),
-    posters: z.any().array()
+    posters: posterSchema.array()
 }).transform(x => ({
     campaignId: x.campaign_id,
     campainName: x.campaign_name,
