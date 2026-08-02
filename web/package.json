@@ -14,6 +14,7 @@
     "browser-image-compression": "^2.0.2",
     "feather-icons-react": "^1.0.0",
     "html5-qrcode": "^2.3.8",
+    "lodash.debounce": "^4.0.8",
     "pdf-lib": "^1.17.1",
     "pigeon-maps": "^0.22.1",
     "qrcode.react": "^4.2.0",
