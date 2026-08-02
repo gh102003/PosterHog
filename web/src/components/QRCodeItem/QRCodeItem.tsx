@@ -3,11 +3,23 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { constructScanLink } from "../../data/scan";
 import type { CampaignType } from "../../data/campaign";
 import type { PosterType } from "../../data/poster";
+import styles from "./QRCodeItem.module.css";
 
 interface QRCodeItemProps {
     poster: PosterType,
     campaign: CampaignType
 }
+
+function getStateDescription(poster: PosterType): string {
+    switch (poster.posterState) {
+        case "generated":
+            return "Not put up yet"
+        case "distributed":
+            return "Live"
+        case "removed":
+            return "Taken down"
+    }
+} 
 
 function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
 
@@ -27,14 +39,16 @@ function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
     };
 
     return (
-        <div>
+        <div className={styles.card}>
             <div ref={canvasRef}>
                 <QRCodeCanvas value={link} size={140} />
             </div>
-            <a href={link}>link</a>
+            <a href={link} className={styles.link}>{poster.linkUuid}</a>
             <button onClick={handleDownload}>
                 Download PNG
             </button>
+            <p>{getStateDescription(poster)}</p>
+            <p>{poster.posterState !== "generated" && poster.locationDescription}</p>
         </div>
     );
 }

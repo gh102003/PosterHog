@@ -4,11 +4,13 @@ import Campaign from "../Campaign/Campaign";
 import styles from "./CampaignPage.module.css"
 import { createPosters } from "../../data/poster";
 import { CreateCampaign } from "../CreateCampaign/CreateCampaign";
+import { DistributePosters } from "../DistributePosters/DistributePosters";
 
 
 function CampaignPage() {
 
     const [campaigns, setCampaigns] = useState<Record<number, CampaignType> | null>(null);
+    const [disributingCampaignId, setDistributingCampaignId] = useState<number | null>(null);
 
     // Load the campaigns
     useEffect(() => {
@@ -19,6 +21,10 @@ function CampaignPage() {
                 setCampaigns(campaignsObj);
             });
     }, []);
+
+    if (campaigns && disributingCampaignId !== null) {
+        return <DistributePosters campaign={campaigns[disributingCampaignId]}/>;
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -34,6 +40,7 @@ function CampaignPage() {
                                 const updatedCampaign = {...c, posters: [...c.posters, ...newPosters]};
                                 setCampaigns({...campaigns, [c.campaignId]: updatedCampaign});
                             }}
+                            handleStartDistributing={() => setDistributingCampaignId(c.campaignId)}
                         />
                     ))
                     :
