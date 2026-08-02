@@ -5,6 +5,7 @@ import styles from "./AnalyticsPage.module.css";
 import ViewDistributionChart from "./ViewDistributionChart.tsx";
 import WeekScanFrequency from "./WeekScanFrequency.tsx";
 import PosterRankings from "./PosterRankings.tsx";
+import PosterMap from "./PosterMap.tsx";
 
 function AnalyticsPage() {
     const [campaignsData, setCampaignsData] = React.useState<any>([]);
@@ -67,6 +68,13 @@ function AnalyticsPage() {
                   <h2 className={styles.chartTitle}>Poster Rankings</h2>
                 </div>
                 <PosterRankings selectedCampaignData={selectedCampaignData}/>
+              </div>
+
+              <div className={styles.chartWrapper}>
+                <div className={styles.chartTitleWrapper}>
+                  <h2 className={styles.chartTitle}>Poster Locations</h2>
+                </div>
+                <PosterMap selectedCampaignData={selectedCampaignData}/>
               </div>
 
             </div>}
