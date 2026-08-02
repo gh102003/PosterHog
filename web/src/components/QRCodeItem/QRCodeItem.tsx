@@ -41,8 +41,8 @@ function QRCodeItem({ poster, campaign }: QRCodeItemProps) {
 
     return (
         <div className={styles.card}>
-            <div ref={canvasRef}>
-                <QRCodeCanvas value={link} size={140} />
+            <div ref={canvasRef} className={styles.qrCanvasWrapper}>
+                <QRCodeCanvas className={styles.qrCanvas} value={link} size={140} marginSize={2} />
             </div>
             <a href={link} className={styles.link} target="_blank" rel="noreferrer">{poster.linkUuid}</a>
             <button onClick={handleDownload}>

@@ -9,6 +9,7 @@ import { AddPosterInfo } from "../AddPosterInfo/AddPosterInfo"
 
 type Props = {
     campaign: CampaignType
+    handleFinish: () => void
 }
 
 function uuidFromUrl(url: string): string {
@@ -24,7 +25,7 @@ function uuidFromUrl(url: string): string {
     }
 }
 
-export function DistributePosters({ campaign }: Props) {
+export function DistributePosters({ campaign, handleFinish }: Props) {
 
     const [currentPoster, setCurrentPoster] = useState<PosterType | null>(null);
 
@@ -33,27 +34,30 @@ export function DistributePosters({ campaign }: Props) {
             <h2>Distributing posters for campaign {campaign.campaignName}</h2>
             {
                 !currentPoster &&
-                <QRCodeReader onScan={(value: string) => {
-                    let matchingPosters: PosterType[];
-                    try {
-                        const uuid = uuidFromUrl(value);
-                        matchingPosters = campaign.posters.filter(p => p.linkUuid === uuid);
-                    } catch (err) {
-                        alert(err);
-                        return;
-                    }
-                    if (matchingPosters.length !== 1) {
-                        alert("Poster not recognised");
-                        return;
-                    }
-                    setCurrentPoster(matchingPosters[0]);
-                }} />
+                <>
+                    <QRCodeReader onScan={(value: string) => {
+                        let matchingPosters: PosterType[];
+                        try {
+                            const uuid = uuidFromUrl(value);
+                            matchingPosters = campaign.posters.filter(p => p.linkUuid === uuid);
+                        } catch (err) {
+                            alert(err);
+                            return;
+                        }
+                        if (matchingPosters.length !== 1) {
+                            alert("Poster not recognised");
+                            return;
+                        }
+                        setCurrentPoster(matchingPosters[0]);
+                    }} />
+                    <button className={styles.finishBtn} onClick={handleFinish}>Finish</button>
+                </>
             }
             {
                 currentPoster &&
                 <>
                     <p>Put up poster {currentPoster.linkUuid}</p>
-                    <AddPosterInfo poster={currentPoster} handleDone={() => setCurrentPoster(null)}/>
+                    <AddPosterInfo poster={currentPoster} handleDone={() => setCurrentPoster(null)} />
                 </>
             }
         </div>

@@ -103,7 +103,7 @@ export function AddPosterInfo({ poster, handleDone }: Props) {
                     <button onClick={async () => {
                         await handleSubmit(poster.campaignId, poster.posterId, description === "" ? null : description, coords, photo);
                         handleDone();
-                    }}>{coords ? "Set and submit" : "Skip and submit"}</button>
+                    }}>{photo ? "Set and submit" : "Skip and submit"}</button>
                 </div>
             }
         </div>

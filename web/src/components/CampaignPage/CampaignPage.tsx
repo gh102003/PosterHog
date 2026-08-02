@@ -24,7 +24,7 @@ function CampaignPage() {
     }, []);
 
     if (campaigns && disributingCampaignId !== null) {
-        return <DistributePosters campaign={campaigns[disributingCampaignId]}/>;
+        return <DistributePosters campaign={campaigns[disributingCampaignId]} handleFinish={() => setDistributingCampaignId(null)}/>;
     }
 
     return (
