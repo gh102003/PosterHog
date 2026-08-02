@@ -4,6 +4,7 @@ import { constructScanLink } from "../../data/scan";
 import type { CampaignType } from "../../data/campaign";
 import type { PosterType } from "../../data/poster";
 import styles from "./QRCodeItem.module.css";
+import { MapWithPoint } from "./Map";
 
 interface QRCodeItemProps {
     poster: PosterType,
@@ -42,18 +43,18 @@ function QRCodeItem({ poster, campaign }: QRCodeItemProps) {
         <div className={styles.card}>
             <div ref={canvasRef}>
                 <QRCodeCanvas value={link} size={140} />
-                <a href={link}>Link</a>
             </div>
-            <a href={link} className={styles.link}>{poster.linkUuid}</a>
+            <a href={link} className={styles.link} target="_blank" rel="noreferrer">{poster.linkUuid}</a>
             <button onClick={handleDownload}>
                 Download PNG
             </button>
-            <p>{getStateDescription(poster)}</p>
-            {poster.posterState !== "generated" && <div>
+            <p className={styles.status} data-status={poster.posterState}>{getStateDescription(poster)}</p>
+            {poster.posterState !== "generated" && <>
                 <p>{poster.locationDescription}</p>
-                <p>Latitude {poster.locationLat}, longitude {poster.locationLong}</p>
+                {/* <p>Latitude {poster.locationLat}, longitude {poster.locationLong}</p> */}
+                {poster.locationLat && poster.locationLong && <MapWithPoint lat={poster.locationLat} long={poster.locationLong}/>}
                 <img className={styles.locationImage} src={"data:image/jpeg;base64," + poster.locationPhoto}/>
-            </div>
+            </>
             }
         </div>
     );

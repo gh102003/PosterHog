@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: column;
     width: min(200px, 40vw);
+    border-radius: 6px;
+    background-color: var(--color-blue-200);
+    border: 2px solid var(--color-blue-400);
+    padding: 0.4em;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .link {
@@ -10,4 +16,20 @@
 
 .locationImage {
     width: 100%
+}
+
+.status {
+    background-color: white;
+    padding: 0.1em 0.4em;
+    border-radius: 8px;
+
+    &[data-status=generated] {
+        background-color: oklch(90.484% 0.08109 76.127);
+    }
+    &[data-status=distributed] {
+        background-color: oklch(92.635% 0.12179 154.358);
+    }
+    &[data-status=removed] {
+        background-color: oklch(80.723% 0.10959 19.694);
+    }
 }

@@ -86,11 +86,26 @@
   transition: background-color 0.2s, width 0.2s;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+
+  svg {
+    margin-left: 0.4em;
+    margin-top: 1px;
+    transition: transform 0.2s;
+  }
 }
 
 .bigNavBtn:hover,.bigNavBtn:focus{
   background-color: var(--color-amber-700);
   width: 95%;
+
+  svg {
+    transform: translateX(5px);
+  }
 }
 
 .bigNavBtn:focus{

@@ -11,9 +11,13 @@ type CampaignProps = {
 
 export default function Campaign({ campaign, handleAddPosters, handleStartDistributing }: CampaignProps) {
     return (
-        <Collapsible.Root>
-            <Collapsible.Trigger className={styles.campaignTitle}>{campaign.campaignName}</Collapsible.Trigger>
+        <Collapsible.Root className={styles.campaignWrapper}>
+            <Collapsible.Trigger className={styles.campaignTitle}>
+                <span className={styles.campaignName}>{campaign.campaignName}</span>
+                &nbsp;({campaign.posters.length} poster{campaign.posters.length !== 1 && "s"})
+            </Collapsible.Trigger>
             <Collapsible.Content className={styles.campaignContent}>
+            <p>These posters link to <a href={campaign.destination} target="_blank" rel="noreferrer">{campaign.destination}</a></p>
                 <div className={styles.qrCodesWrapper}>
                     {campaign.posters.map((poster, i) => (
                         <QRCodeItem poster={poster} campaign={campaign} key={i} />

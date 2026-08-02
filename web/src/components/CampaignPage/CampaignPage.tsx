@@ -29,6 +29,11 @@ function CampaignPage() {
 
     return (
         <div className={styles.wrapper}>
+            <h1>Campaigns</h1>
+            <CreateCampaign handleSubmit={async (name, destination) => {
+                const createdCampaign = await createCampaign(name, destination);
+                setCampaigns({...campaigns, [createdCampaign.campaignId]: createdCampaign})
+            }}/>
             <div className={styles.campaignWrapper}>
                 {campaigns ?
                     Object.values(campaigns).map(c => (
@@ -48,11 +53,6 @@ function CampaignPage() {
                     <p>Loading campaigns...</p>
                 }
             </div>
-            <CreateCampaign handleSubmit={async (name, destination) => {
-                const createdCampaign = await createCampaign(name, destination);
-                
-                setCampaigns({...campaigns, [createdCampaign.campaignId]: createdCampaign})
-            }}/>
         </div>
     )
 }

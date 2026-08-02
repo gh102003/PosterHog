@@ -12,9 +12,9 @@ export function CreateCampaign({handleSubmit}: Props) {
 
     return (
         <Collapsible.Root open={open} onOpenChange={setOpen}>
-            <Collapsible.Trigger>Create new poster campaign</Collapsible.Trigger>
+            <Collapsible.Trigger className={styles.newPosterBtn}>Create new poster campaign</Collapsible.Trigger>
             <Collapsible.Content className={styles.content}>
-                <Form.Root className={styles.Root}
+                <Form.Root className={styles.formRoot}
                     onSubmit={(event) => {
                         const data = Object.fromEntries(new FormData(event.currentTarget));
 

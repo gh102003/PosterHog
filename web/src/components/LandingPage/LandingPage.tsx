@@ -1,5 +1,6 @@
 import styles from "./LandingPage.module.css";
 import {ANALYTICS_PAGE, CAMPAIGN_PAGE, type PageName} from "../../constants.ts";
+import { ArrowRight } from 'feather-icons-react';
 
 interface LandingPageProps {
     changePage: (page:PageName)=>void;
@@ -16,8 +17,8 @@ function LandingPage({changePage}:LandingPageProps) {
                     Create a QR code for your campaign, attach it to your poster
                     and watch the analytics come in.
                 </p>
-                <button onClick={()=>changePage(CAMPAIGN_PAGE)} className={styles.bigNavBtn}>To {CAMPAIGN_PAGE}</button>
-                <button onClick={()=>changePage(ANALYTICS_PAGE)} className={styles.bigNavBtn}>To {ANALYTICS_PAGE}</button>
+                <button onClick={()=>changePage(CAMPAIGN_PAGE)} className={styles.bigNavBtn}>{CAMPAIGN_PAGE}<ArrowRight/></button>
+                <button onClick={()=>changePage(ANALYTICS_PAGE)} className={styles.bigNavBtn}>{ANALYTICS_PAGE}<ArrowRight/></button>
             </div>
         </div>
     )
