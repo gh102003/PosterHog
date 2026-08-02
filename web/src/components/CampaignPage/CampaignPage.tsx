@@ -29,29 +29,34 @@ function CampaignPage() {
 
     return (
         <div className={styles.wrapper}>
-            <h1>Campaigns</h1>
-            <CreateCampaign handleSubmit={async (name, destination) => {
-                const createdCampaign = await createCampaign(name, destination);
-                setCampaigns({...campaigns, [createdCampaign.campaignId]: createdCampaign})
-            }}/>
-            <div className={styles.campaignWrapper}>
-                {campaigns ?
-                    Object.values(campaigns).map(c => (
-                        <Campaign
-                            key={c.campaignId}
-                            campaign={c}
-                            handleAddPosters={async () => {
-                                // Update the value of 'campaigns' state
-                                const newPosters = await createPosters(c.campaignId, 1);
-                                const updatedCampaign = {...c, posters: [...c.posters, ...newPosters]};
-                                setCampaigns({...campaigns, [c.campaignId]: updatedCampaign});
-                            }}
-                            handleStartDistributing={() => setDistributingCampaignId(c.campaignId)}
-                        />
-                    ))
-                    :
-                    <p>Loading campaigns...</p>
-                }
+            <div className={styles.circle}></div>
+            <div className={styles.circle}></div>
+            <div className={styles.circle}></div>
+            <div className={styles.content}>
+                <h1>Campaigns</h1>
+                <CreateCampaign handleSubmit={async (name, destination) => {
+                    const createdCampaign = await createCampaign(name, destination);
+                    setCampaigns({...campaigns, [createdCampaign.campaignId]: createdCampaign})
+                }}/>
+                <div className={styles.campaignWrapper}>
+                    {campaigns ?
+                        Object.values(campaigns).map(c => (
+                            <Campaign
+                                key={c.campaignId}
+                                campaign={c}
+                                handleAddPosters={async () => {
+                                    // Update the value of 'campaigns' state
+                                    const newPosters = await createPosters(c.campaignId, 1);
+                                    const updatedCampaign = {...c, posters: [...c.posters, ...newPosters]};
+                                    setCampaigns({...campaigns, [c.campaignId]: updatedCampaign});
+                                }}
+                                handleStartDistributing={() => setDistributingCampaignId(c.campaignId)}
+                            />
+                        ))
+                        :
+                        <p>Loading campaigns...</p>
+                    }
+                </div>
             </div>
         </div>
     )
