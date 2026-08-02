@@ -25,6 +25,7 @@ function QRCodeItem({ link, campaign, qrCodeId }:QRCodeItemProps) {
         <div>
             <div ref={canvasRef}>
                 <QRCodeCanvas value={link} size={140} />
+                <a href={link}>Link</a>
             </div>
             <button onClick={handleDownload}>
                 Download PNG

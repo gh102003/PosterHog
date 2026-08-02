@@ -20,10 +20,8 @@ router.get('/:linkUuid', async (req: express.Request<{ linkUuid: string }>, res:
     if (!poster || !poster.campaigns) {
         return res.status(404).json({ error: "Poster not found" });
     }
-
-    recordScan(poster.poster_id)
-
-    return res.redirect(301, poster.campaigns.destination);
+    await recordScan(poster.poster_id);
+    return res.redirect(302, poster.campaigns.destination);
 });
 
 router.get("/byCampaign/:campaignId", async (req: express.Request<{ campaignId: string }>, res: express.Response) => {
