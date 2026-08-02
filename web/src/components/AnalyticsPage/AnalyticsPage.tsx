@@ -31,53 +31,58 @@ function AnalyticsPage() {
 
     return (
         <div className={styles.pageWrapper}>
-            <select
-                id="campaign-select"
-                className={styles.campaignSelect}
-                value={selectedCampaign}
-                onChange={(event) => setSelectedCampaign(event.target.value)}
-            >
-                <option value="" disabled>
-                    Select a campaign...
-                </option>
-
-                {campaignsData.map((c: any) => (
-                    <option key={c.campaignId} value={c.campaignId}>
-                        {c.campaignName}
+            <div className={styles.circle}></div>
+            <div className={styles.circle}></div>
+            <div className={styles.mainPageWrapper}>
+                <select
+                    id="campaign-select"
+                    className={styles.campaignSelect}
+                    value={selectedCampaign}
+                    onChange={(event) => setSelectedCampaign(event.target.value)}
+                >
+                    <option value="" disabled>
+                        Select a campaign...
                     </option>
-                ))}
-            </select>
-            {selectedCampaignData && <div className={styles.contentWrapper}>
 
-              <div className={styles.chartWrapper}>
-                <div className={styles.chartTitleWrapper}>
-                  <h2 className={styles.chartTitle}>Poster View Distribution</h2>
-                </div>
-                <div className={styles.chart}>
-                  <ViewDistributionChart selectedCampaignData={selectedCampaignData}/>
-                </div>
-              </div>
-              <div className={styles.chartWrapper}>
-                <div className={styles.chartTitleWrapper}>
-                  <h2 className={styles.chartTitle}>Scans Per Day</h2>
-                </div>
-                <WeekScanFrequency selectedCampaignData={selectedCampaignData}/>
-              </div>
-              <div className={styles.chartWrapper}>
-                <div className={styles.chartTitleWrapper}>
-                  <h2 className={styles.chartTitle}>Poster Rankings</h2>
-                </div>
-                <PosterRankings selectedCampaignData={selectedCampaignData}/>
-              </div>
+                    {campaignsData.map((c: any) => (
+                        <option key={c.campaignId} value={c.campaignId}>
+                            {c.campaignName}
+                        </option>
+                    ))}
+                </select>
+                {selectedCampaignData && <div className={styles.contentWrapper}>
 
-              <div className={styles.chartWrapper}>
-                <div className={styles.chartTitleWrapper}>
-                  <h2 className={styles.chartTitle}>Poster Locations</h2>
-                </div>
-                <PosterMap selectedCampaignData={selectedCampaignData}/>
-              </div>
+                  <div className={styles.chartWrapper}>
+                    <div className={styles.chartTitleWrapper}>
+                      <h2 className={styles.chartTitle}>Poster View Distribution</h2>
+                    </div>
+                    <div className={styles.chart}>
+                      <ViewDistributionChart selectedCampaignData={selectedCampaignData}/>
+                    </div>
+                  </div>
+                  <div className={styles.chartWrapper}>
+                    <div className={styles.chartTitleWrapper}>
+                      <h2 className={styles.chartTitle}>Scans Per Day</h2>
+                    </div>
+                    <WeekScanFrequency selectedCampaignData={selectedCampaignData}/>
+                  </div>
+                  <div className={styles.chartWrapper}>
+                    <div className={styles.chartTitleWrapper}>
+                      <h2 className={styles.chartTitle}>Poster Rankings</h2>
+                    </div>
+                    <PosterRankings selectedCampaignData={selectedCampaignData}/>
+                  </div>
 
-            </div>}
+                  <div className={styles.chartWrapper}>
+                    <div className={styles.chartTitleWrapper}>
+                      <h2 className={styles.chartTitle}>Poster Locations</h2>
+                    </div>
+                    <PosterMap selectedCampaignData={selectedCampaignData}/>
+                  </div>
+
+                </div>}
+            </div>
+
         </div>
     )
 }
