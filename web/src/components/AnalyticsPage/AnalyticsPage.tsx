@@ -4,7 +4,7 @@ import {getByCampaign} from "../../data/scan.ts";
 import styles from "./AnalyticsPage.module.css";
 import ViewDistributionChart from "./ViewDistributionChart.tsx";
 import WeekScanFrequency from "./WeekScanFrequency.tsx";
-
+import PosterRankings from "./PosterRankings.tsx";
 
 function AnalyticsPage() {
     const [campaignsData, setCampaignsData] = React.useState<any>([]);
@@ -62,7 +62,12 @@ function AnalyticsPage() {
                 </div>
                 <WeekScanFrequency selectedCampaignData={selectedCampaignData}/>
               </div>
-
+              <div className={styles.chartWrapper}>
+                <div className={styles.chartTitleWrapper}>
+                  <h2 className={styles.chartTitle}>Poster Rankings</h2>
+                </div>
+                <PosterRankings selectedCampaignData={selectedCampaignData}/>
+              </div>
 
             </div>}
         </div>
