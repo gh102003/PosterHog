@@ -1,12 +1,30 @@
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
-function ViewDistributionChart({posterViewDistribution}) {
-    if(posterViewDistribution===null || posterViewDistribution.length==0) return;
+function ViewDistributionChart({selectedCampaignData}:{selectedCampaignData:any}) {
+    if(selectedCampaignData===null) return;
+    const frequencyMap = new Map<number, number>();
+
+    selectedCampaignData.posters.forEach((poster: any) => {
+        const views = poster.scans.length;
+        frequencyMap.set(
+            views,
+            (frequencyMap.get(views) ?? 0) + 1
+        );
+    });
+
+    const chartData = [...frequencyMap.entries()]
+        .map(([views, posters]) => ({
+            views,
+            posters,
+        }))
+        .sort((a, b) => a.views - b.views);
+
+    if(chartData.length==0) return;
     return (
 
-        <ResponsiveContainer height={posterViewDistribution.length * 40 + 50}>
+        <ResponsiveContainer height={chartData.length * 40 + 50}>
             <BarChart
-                data={posterViewDistribution}
+                data={chartData}
                 layout="vertical"
             >
                 <CartesianGrid strokeDasharray="3 3" />

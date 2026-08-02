@@ -26,30 +26,6 @@ function AnalyticsPage() {
 
     },[selectedCampaign]);
 
-    const [posterViewDistribution, setPosterViewDistribution] = React.useState<any|null>(null);
-
-    React.useEffect(() => {
-        if (selectedCampaignData) {
-            const frequencyMap = new Map<number, number>();
-
-            selectedCampaignData.posters.forEach((poster: any) => {
-                const views = poster.scans.length;
-                frequencyMap.set(
-                    views,
-                    (frequencyMap.get(views) ?? 0) + 1
-                );
-            });
-
-            const chartData = [...frequencyMap.entries()]
-                .map(([views, posters]) => ({
-                    views,
-                    posters,
-                }))
-                .sort((a, b) => a.views - b.views);
-
-            setPosterViewDistribution(chartData);
-        }
-    }, [selectedCampaignData]);
 
     return (
         <>
@@ -69,7 +45,7 @@ function AnalyticsPage() {
                 ))}
             </select>
             <div className={styles.chartWrapper}>
-                {<ViewDistributionChart posterViewDistribution={posterViewDistribution} />}
+                {<ViewDistributionChart selectedCampaignData={selectedCampaignData} />}
             </div>
         </>
     )
