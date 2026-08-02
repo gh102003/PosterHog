@@ -3,6 +3,7 @@
   flex-direction: row;
   padding-top: 20px;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .campaignSelect{
@@ -46,4 +47,22 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
+}
+
+.posterRankings{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 0 20px;
+  gap:10px;
+  max-height:300px;
+  overflow-y: auto;
+}
+
+.posterRank{
+  font-size: 1.2rem;
+}
+
+.posterRank .posterName{
+  font-weight: bold;
 }
