@@ -6,12 +6,13 @@ const STAGES = ["name", "coords", "photo"] as const;
 
 type Props = {
     poster: PosterType
+    handleDone: () => void
 }
 
 type Coords = { lat: number, long: number }
 
-function handleSubmit(campaignId: number, posterId: number, description: string | null, coords: Coords | null, photo: string | null) {
-    updatePoster(campaignId, posterId, {
+async function handleSubmit(campaignId: number, posterId: number, description: string | null, coords: Coords | null, photo: string | null) {
+    await updatePoster(campaignId, posterId, {
         locationDescription: description,
         locationLat: coords?.lat,
         locationLong: coords?.long,
@@ -20,7 +21,7 @@ function handleSubmit(campaignId: number, posterId: number, description: string 
     });
 }
 
-export function AddPosterInfo({ poster }: Props) {
+export function AddPosterInfo({ poster, handleDone }: Props) {
 
     const [stage, setStage] = useState<typeof STAGES[number]>("name");
 
@@ -30,6 +31,12 @@ export function AddPosterInfo({ poster }: Props) {
 
     const photoPreviewRef = useRef<HTMLImageElement>(null);
 
+    if (poster.posterState !== "generated") {
+        return <div>
+            <p>You've already put this poster up!</p>
+            <button onClick={() => handleDone()}>Go back</button>
+        </div>
+    }
 
     return (
         <div>
@@ -65,7 +72,8 @@ export function AddPosterInfo({ poster }: Props) {
                         const compressedFile = await imageCompression(file, {
                             maxWidthOrHeight: 768,
                             useWebWorker: true,
-                            maxSizeMB: 0.2
+                            maxSizeMB: 0.2,
+                            fileType: "image/jpeg"
                         });
 
                         const reader = new FileReader();
@@ -83,7 +91,7 @@ export function AddPosterInfo({ poster }: Props) {
 
                             console.log(dataUrl);
                             // 2. Get Base64
-                            const base64 = dataUrl.split(",")[1]; // Removes "data:image/png;base64,"
+                            const base64 = dataUrl.split(",")[1]; // Removes "data:image/jpeg;base64,"
                             setPhoto(base64);
                             console.log(base64);
 
@@ -92,8 +100,9 @@ export function AddPosterInfo({ poster }: Props) {
                         reader.readAsDataURL(compressedFile);
                     }}/>
                     <img ref={photoPreviewRef}/>
-                    <button onClick={() => {
-                        handleSubmit(poster.campaignId, poster.posterId, description === "" ? null : description, coords, photo)
+                    <button onClick={async () => {
+                        await handleSubmit(poster.campaignId, poster.posterId, description === "" ? null : description, coords, photo);
+                        handleDone();
                     }}>{coords ? "Set and submit" : "Skip and submit"}</button>
                 </div>
             }

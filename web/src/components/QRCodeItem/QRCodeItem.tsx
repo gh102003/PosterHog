@@ -19,9 +19,9 @@ function getStateDescription(poster: PosterType): string {
         case "removed":
             return "Taken down"
     }
-} 
+}
 
-function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
+function QRCodeItem({ poster, campaign }: QRCodeItemProps) {
 
     const link = constructScanLink(poster.linkUuid);
 
@@ -49,7 +49,12 @@ function QRCodeItem({ poster, campaign }:QRCodeItemProps) {
                 Download PNG
             </button>
             <p>{getStateDescription(poster)}</p>
-            <p>{poster.posterState !== "generated" && poster.locationDescription}</p>
+            {poster.posterState !== "generated" && <div>
+                <p>{poster.locationDescription}</p>
+                <p>Latitude {poster.locationLat}, longitude {poster.locationLong}</p>
+                <img className={styles.locationImage} src={"data:image/jpeg;base64," + poster.locationPhoto}/>
+            </div>
+            }
         </div>
     );
 }

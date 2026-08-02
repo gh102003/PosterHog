@@ -17,6 +17,7 @@ function CampaignPage() {
         getCampaigns()
             // turn campaigns from array into object, keyed by id
             .then(campaignsArray => {
+                console.log({campaignsArray});
                 const campaignsObj = Object.fromEntries(campaignsArray.map(c => [c.campaignId, c]));
                 setCampaigns(campaignsObj);
             });

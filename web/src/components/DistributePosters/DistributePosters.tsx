@@ -53,7 +53,7 @@ export function DistributePosters({ campaign }: Props) {
                 currentPoster &&
                 <>
                     <p>Put up poster {currentPoster.linkUuid}</p>
-                    <AddPosterInfo poster={currentPoster} />
+                    <AddPosterInfo poster={currentPoster} handleDone={() => setCurrentPoster(null)}/>
                 </>
             }
         </div>
