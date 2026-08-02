@@ -1,16 +1,10 @@
 import React from "react";
 import {getCampaigns} from "../../data/campaign.ts";
 import {getByCampaign} from "../../data/scan.ts";
+import styles from "./AnalyticsPage.module.css";
+import ViewDistributionChart from "./ViewDistributionChart.tsx";
 
-import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer
-} from "recharts";
+
 function AnalyticsPage() {
     const [campaignsData, setCampaignsData] = React.useState<any>([]);
     const [selectedCampaign, setSelectedCampaign] = React.useState<any>("");
@@ -32,7 +26,7 @@ function AnalyticsPage() {
 
     },[selectedCampaign]);
 
-    const [posterViewDistribution, setPosterViewDistribution] = React.useState<any>(null);
+    const [posterViewDistribution, setPosterViewDistribution] = React.useState<any|null>(null);
 
     React.useEffect(() => {
         if (selectedCampaignData) {
@@ -57,7 +51,6 @@ function AnalyticsPage() {
         }
     }, [selectedCampaignData]);
 
-
     return (
         <>
             <select
@@ -75,43 +68,9 @@ function AnalyticsPage() {
                     </option>
                 ))}
             </select>
-            {selectedCampaignData &&
-              <div>
-                {selectedCampaignData.posters.map((poster: any) => (
-                    <p key={poster.link_uuid}>{poster.link_uuid} : {poster.scans.length}</p>
-                ))}
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={posterViewDistribution}>
-                    <CartesianGrid strokeDasharray="3 3" />
-
-                    <XAxis
-                      dataKey="views"
-                      label={{
-                          value: "Views",
-                          position: "insideBottom",
-                          offset: -5
-                      }}
-                    />
-
-                    <YAxis
-                      allowDecimals={false}
-                      label={{
-                          value: "Number of Posters",
-                          angle: -90,
-                          position: "insideLeft"
-                      }}
-                    />
-
-                    <Tooltip />
-
-                    <Bar
-                      dataKey="posters"
-                      fill="#8884d8"
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            }
+            <div className={styles.chartWrapper}>
+                {<ViewDistributionChart posterViewDistribution={posterViewDistribution} />}
+            </div>
         </>
     )
 }
