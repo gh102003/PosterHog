@@ -28,9 +28,10 @@ function AnalyticsPage() {
 
 
     return (
-        <>
+        <div className={styles.pageWrapper}>
             <select
                 id="campaign-select"
+                className={styles.campaignSelect}
                 value={selectedCampaign}
                 onChange={(event) => setSelectedCampaign(event.target.value)}
             >
@@ -44,10 +45,17 @@ function AnalyticsPage() {
                     </option>
                 ))}
             </select>
-            <div className={styles.chartWrapper}>
-                {<ViewDistributionChart selectedCampaignData={selectedCampaignData} />}
-            </div>
-        </>
+            {selectedCampaignData && <div className={styles.contentWrapper}>
+                {
+                    <div className={styles.chartWrapper}>
+                        <div className={styles.chartTitleWrapper}>
+                            <h2 className={styles.chartTitle}>Poster View Distribution</h2>
+                        </div>
+                        <ViewDistributionChart selectedCampaignData={selectedCampaignData} />
+                    </div>
+                }
+            </div>}
+        </div>
     )
 }
 

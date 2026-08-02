@@ -22,7 +22,7 @@ function ViewDistributionChart({selectedCampaignData}:{selectedCampaignData:any}
     if(chartData.length==0) return;
     return (
 
-        <ResponsiveContainer height={chartData.length * 40 + 50}>
+        <ResponsiveContainer height={chartData.length * 40 + 50} width="100%">
             <BarChart
                 data={chartData}
                 layout="vertical"
