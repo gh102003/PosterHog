@@ -1,6 +1,9 @@
 import React from "react";
 import {getCampaigns} from "../../data/campaign.ts";
 import {getByCampaign} from "../../data/scan.ts";
+import styles from "./AnalyticsPage.module.css";
+import ViewDistributionChart from "./ViewDistributionChart.tsx";
+
 
 function AnalyticsPage() {
     const [campaignsData, setCampaignsData] = React.useState<any>([]);
@@ -13,16 +16,17 @@ function AnalyticsPage() {
                 console.log(campaignsArray);
             });
     }, []);
-    const [selectedCampaignData, setSelectedCampaignData] = React.useState<any>({posters:[]});
+    const [selectedCampaignData, setSelectedCampaignData] = React.useState<any>(null);
     React.useEffect(()=>{
         if(selectedCampaign!=""){
             getByCampaign(selectedCampaign).then(data => {
                 setSelectedCampaignData(data);
-                console.log(data);
             })
         }
 
     },[selectedCampaign]);
+
+
     return (
         <>
             <select
@@ -40,13 +44,11 @@ function AnalyticsPage() {
                     </option>
                 ))}
             </select>
-            <div>
-                {selectedCampaignData.posters.map((poster:any) => (
-                    <p key={poster.link_uuid}>{poster.link_uuid} : {poster.scans.length}</p>
-                ))}
+            <div className={styles.chartWrapper}>
+                {<ViewDistributionChart selectedCampaignData={selectedCampaignData} />}
             </div>
         </>
     )
 }
 
-export default AnalyticsPage
+export default AnalyticsPage;
